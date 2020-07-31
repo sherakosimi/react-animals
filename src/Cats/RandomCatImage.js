@@ -16,12 +16,13 @@ function RandomCatImage(props) {
   const [catImageUrl, setCatImageUrl] = React.useState(null);
 
   React.useEffect(() => {
-    fetch("https://api.thecatapi.com/v1/images/search")
+    fetch("https://api.thecatapi.com/v1/images/search/")
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         setCatImageUrl(data[0].url);
+        console.log(data);
       });
   }, []);
 

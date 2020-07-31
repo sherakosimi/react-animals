@@ -19,6 +19,7 @@ function Header(props) {
       <Link to="/">Home</Link>
       <Link to="/randomCat">Cat Picture</Link>
       <Link to="/randomDog"> Dog Picture</Link>
+      <Link to = "/randomCatFact"> Cat Fact</Link>
     </MainContainer>
   );
 }
