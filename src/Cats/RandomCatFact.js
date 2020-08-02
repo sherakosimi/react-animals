@@ -10,26 +10,15 @@ const MainContainer = styled.div`
 
 // https://docs.thecatapi.com/
 
-function RandomCatFact(props) {
-  const [catFactUrl, setCatFactUrl] = React.useState(null);
-  const [seconds, setSeconds] = useState(30)
+function RandomCatFact({pageReload, seconds, secondstimer, id, timer}) {
   const [intervalId, setIntervalId] = useState(null)
-  const [count, setCount] = useState(null)
-
-
+  const [catFactUrl, setCatFactUrl] = React.useState(null);
   useEffect(()=>{
-      const id = window.setInterval(()=>{
-        setSeconds(seconds=> seconds-1);
-      }, 1000);
-      setIntervalId(id);
+      secondstimer()
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCount('Timeout called!');
-      window.location.reload();
-    }, 30000);
-    return () => clearTimeout(timer);
+      pageReload();
   }, []);
 
   React.useEffect(() => {

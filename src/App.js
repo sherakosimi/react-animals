@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import { Router } from "@reach/router";
 import Header from "./Header/Header";
@@ -17,14 +17,33 @@ const MainContainer = styled.div`
 `;
 
 function App() {
+  const [seconds, setSeconds] = useState(30)
+  const [intervalId, setIntervalId] = useState(null)
+
+  function pageReload(){
+   const timer = setTimeout(() => {
+      window.location.reload();
+    }, 30000);
+    return () => window.clearInterval(timer)
+  }
+
+
+   function secondstimer(){
+    setSeconds(30)
+     const id = window.setInterval(()=>{
+      setSeconds(seconds=> seconds-1);
+    }, 1000);
+    return () => window.clearInterval(id)
+  }
+
   return (
     <MainContainer>
       <Header />
       <Router>
         <HomePage path="/" />
-        <RandomCatImage path="/randomCat" />
-        <RandomDogImage path = "/randomDog"/>
-        <RandomCatFact path = "/randomCatFact"/>
+        <RandomCatImage pageReload = {pageReload} secondstimer = {secondstimer} seconds={seconds} path="/randomCat" />
+        <RandomDogImage pageReload = {pageReload} secondstimer = {secondstimer} seconds={seconds}  path = "/randomDog"/>
+        <RandomCatFact pageReload= {pageReload} secondstimer= {secondstimer} seconds={seconds}  path = "/randomCatFact"/>
       </Router>
     </MainContainer>
   );

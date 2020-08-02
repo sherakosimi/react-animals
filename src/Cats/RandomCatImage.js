@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 
 const MainContainer = styled.div`
@@ -12,8 +12,17 @@ const Image = styled.img`
 
 // https://docs.thecatapi.com/
 
-function RandomCatImage(props) {
+function RandomCatImage({pageReload, seconds, secondstimer, id, timer}) {
   const [catImageUrl, setCatImageUrl] = React.useState(null);
+  const [intervalId, setIntervalId] = useState(null)
+
+  useEffect(()=>{
+    secondstimer()
+}, []);
+
+useEffect(() => {
+    pageReload();
+}, []);
 
   React.useEffect(() => {
     fetch("https://api.thecatapi.com/v1/images/search/")
@@ -30,6 +39,7 @@ function RandomCatImage(props) {
 
   return (
     <MainContainer>
+       <div>You have {seconds} seconds left before it is reloaded</div>
       <Image src={catImageUrl} />
     </MainContainer>
   );

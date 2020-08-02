@@ -1,5 +1,5 @@
 // https://dog.ceo/dog-api/
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 
 const MainContainer = styled.div`
@@ -11,8 +11,17 @@ const Image = styled.img`
   width: 100%;
 `;
 
-function RandomDogImage(props) {
+function RandomDogImage({pageReload, seconds, secondstimer, id, timer}) {
   const [dogImageUrl, setDogImageUrl] = React.useState(null);
+  const [intervalId, setIntervalId] = useState(null)
+
+  useEffect(()=>{
+    secondstimer()
+}, []);
+
+useEffect(() => {
+    pageReload();
+}, []);
 
   React.useEffect(() => {
     fetch("https://dog.ceo/api/breeds/image/random")
@@ -29,7 +38,7 @@ function RandomDogImage(props) {
 
   return (
     <MainContainer>
-       
+       <div>You have {seconds} seconds left before it is reloaded</div>
       <Image src={dogImageUrl} />
     </MainContainer>
   );
